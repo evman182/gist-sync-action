@@ -20,4 +20,5 @@ content=$(sed -E ':a;N;$!ba;s/\r{0,1}\n/\\n/g' $5 | sed 's/\"/\\"/g')
 curl -s -X PATCH \
     -H "Content-Type: application/json" \
     -H "Authorization: token $auth_token" \
-    -d '{"description": "'"$description"'", "files": {"'"$title"'": {"content": "'"$content"'"}}}' $gist_endpoint
+    -d @- $gist_endpoint \
+    < '{"description": "'"$description"'", "files": {"'"$title"'": {"content": "'"$content"'"}}}'
